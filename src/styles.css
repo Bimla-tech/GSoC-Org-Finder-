@@ -707,3 +707,96 @@ footer a:hover{text-decoration:underline}
   color: var(--orange-deep);
   background: var(--orange-pale);
 }
+/* ── Winners toolbar ─────────────────────────────────────────────────────── */
+.winners-toolbar {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+.winners-toolbar input,
+.winners-toolbar select {
+  flex: 1;
+  min-width: 160px;
+  padding: 8px 12px;
+  border: 1px solid var(--border, #ddd);
+  border-radius: 8px;
+  font-size: 14px;
+  background: var(--card-bg, #fff);
+  color: var(--text, #111);
+}
+
+/* ── Winner card ─────────────────────────────────────────────────────────── */
+.winner-card {
+  background: var(--card-bg, #fff);
+  border: 1px solid var(--border, #e2e8f0);
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: box-shadow .2s, transform .15s;
+}
+.winner-card:hover {
+  box-shadow: 0 4px 18px rgba(0,0,0,.10);
+  transform: translateY(-2px);
+}
+.winner-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.winner-avatar {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--border, #e2e8f0);
+  flex-shrink: 0;
+}
+.winner-meta    { display: flex; flex-direction: column; gap: 3px; }
+.winner-handle  { font-weight: 600; font-size: 14px; }
+.winner-badge   { font-size: 11px; font-weight: 700; color: #d97706; letter-spacing: .4px; }
+.winner-org     { font-size: 12px; color: var(--muted, #64748b); font-weight: 500; margin: 0; }
+.winner-title   { font-size: 14px; font-weight: 600; line-height: 1.4; margin: 0; }
+.winner-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px; }
+
+.btn-proposal,
+.btn-gh {
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: opacity .15s;
+  white-space: nowrap;
+}
+.btn-proposal { background: var(--accent, #6366f1); color: #fff; }
+.btn-gh       { border: 1px solid var(--border, #ddd); color: var(--text, #111); }
+.btn-proposal:hover,
+.btn-gh:hover { opacity: .82; }
+
+/* ── Org-card badge pill ─────────────────────────────────────────────────── */
+.winners-pill {
+  display: inline-block;
+  background: #fef3c7;
+  color: #92400e;
+  border-radius: 99px;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 9px;
+  margin-left: 6px;
+}
+
+/* ── State messages ──────────────────────────────────────────────────────── */
+.state-msg   { color: var(--muted, #64748b); padding: 20px 0; }
+.state-error { color: #dc2626; }
+.hidden      { display: none !important; }
+
+/* ── Mobile ──────────────────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .winners-toolbar  { flex-direction: column; }
+  .winner-actions   { flex-direction: column; }
+  .btn-proposal,
+  .btn-gh           { text-align: center; }
+}
