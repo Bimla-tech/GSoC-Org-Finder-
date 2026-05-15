@@ -1,0 +1,31 @@
+    - name: Cache GSoC 2026 Winners Archive
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        curl -sf \
+          -H "Authorization: Bearer $GH_TOKEN" \
+          -H "Accept: application/vnd.github+json" \
+          "https://api.github.com/repos/satwiksps/GSoC_archive_2026/git/trees/main?recursive=1" \
+        | node -e "
+          let d='';
+          process.stdin.on('data',c=>d+=c);
+          process.stdin.on('end',()=>{
+            const tree = JSON.parse(d).tree || [];
+            const out  = tree
+              .filter(f=>f.type==='blob'&&f.path.endsWith('.pdf'))
+              .map(f=>{
+                const parts=f.path.split('/');
+                const org=parts[0];
+                const name=parts[parts.length-1].replace('.pdf','');
+                const segs=name.split('_');
+                const user=segs[segs.length-1];
+                const title=segs.slice(0,-1).join(' ').replace(/-/g,' ')
+                  .replace(/\b\w/g,c=>c.toUpperCase());
+                return {org,title,username:user,
+                  avatar:'https://github.com/'+user+'.png?size=64',
+                  profile:'https://github.com/'+user,
+                  pdfUrl:'https://raw.githubusercontent.com/satwiksps/GSoC_archive_2026/main/'+f.path};
+              });
+            process.stdout.write(JSON.stringify(out,null,2));
+          });
+        " > data/winners.json
